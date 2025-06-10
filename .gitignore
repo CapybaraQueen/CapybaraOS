@@ -1,0 +1,6 @@
+targets/x86_64/iso/boot/kernel.bin
+/build/
+/dist/
+/.cache/
+compile_commands.json
+make_output.txt
