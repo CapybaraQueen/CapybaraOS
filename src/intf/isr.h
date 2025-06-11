@@ -4,4 +4,7 @@
 __attribute__((noreturn))
 void exception_handler(void);
 
+__attribute__((noreturn))
+void interrupt_handler(void);
+
 #endif

@@ -1,4 +1,5 @@
 global isr_stub_table
+global interrupt_handler_asm
 
 extern exception_handler
 
@@ -59,3 +60,6 @@ isr_stub_table:
 		dd isr_stub_%+i
 	%assign i i+1
 	%endrep
+
+interrupt_handler_asm:
+	

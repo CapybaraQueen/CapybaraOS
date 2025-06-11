@@ -1,6 +1,5 @@
 global start
 
-;extern long_mode_start
 extern kernel_main
 
 section .text
@@ -189,10 +188,6 @@ gdt64:
 .pointer:
 	dw $ - gdt64 -1 ; length
 	dq gdt64 ; address
-
-
-;global long_mode_start
-extern kernel_main
 
 section .text
 bits 64
