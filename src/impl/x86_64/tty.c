@@ -15,8 +15,6 @@ static size_t ter_row;
 static uint8_t ter_color;
 static struct Char volatile* ter_buffer;
 
-// TODO: I want to keep the old implementation but change to the new names and try to combine their strengths together. Like keep the struct Char
-
 struct Char
 {
 	uint8_t character;

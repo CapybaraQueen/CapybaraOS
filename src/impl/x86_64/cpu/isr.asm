@@ -2,6 +2,7 @@ global isr_stub_table
 global interrupt_handler_asm
 
 extern exception_handler
+extern interrupt_handler
 
 %macro isr_err_stub 1
 
@@ -15,6 +16,14 @@ isr_stub_%+%1:
 
 isr_stub_%+%1:
 	call exception_handler
+	iretq
+
+%endmacro
+
+%macro irq_no_err_stub 1
+
+irq_stub_%+%1:
+	call interrupt_handler
 	iretq
 
 %endmacro
@@ -52,14 +61,16 @@ isr_no_err_stub 29
 isr_err_stub    30
 isr_no_err_stub 31
 
+irq_no_err_stub 100
+
 section .text
 
 isr_stub_table:
 	%assign i 0
 	%rep 32
 		dd isr_stub_%+i
-	%assign i i+1
+		%assign i i+1
 	%endrep
 
-interrupt_handler_asm:
-	
+	%assign i 100
+	dd irq_stub_%+i

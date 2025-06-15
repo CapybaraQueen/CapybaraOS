@@ -1,7 +1,9 @@
 #include "idt.h"
+#include "isr.h"
 #include<stdbool.h>
 
 extern void* isr_stub_table[];
+extern void* int_stub_table[];
 
 static bool vectors[IDT_MAX_DESCRIPTORS];
 
@@ -25,14 +27,19 @@ void idt_set_descriptor(uint8_t vector, void *isr, uint8_t flags)
 
 void idt_init()
 {
+	uint8_t numVectors = 32;
+
 	idtr.base = (uintptr_t) &idt[0];
 	idtr.limit = (uint16_t) sizeof(idt_entry_t) * IDT_MAX_DESCRIPTORS - 1;
 
-	for (uint8_t vector = 0; vector < 32; vector++)
+	for (uint8_t vector = 0; vector < numVectors; vector++)
 	{
 		idt_set_descriptor(vector, isr_stub_table[vector], 0x8E);
 		vectors[vector] = true;
 	}
+
+	idt_set_descriptor(100, isr_stub_table[100], 0x8E);
+	vectors[100] = true;
 
 	__asm__ volatile ("lidt %0" : : "m"(idtr)); // load the IDT
 	__asm__ volatile ("sti"); //set the interrupt flag

@@ -1,5 +1,7 @@
 #include "apic.h"
 #include<cpuid.h>
+#include<stdint.h>
+#include<stdbool.h>
 #include "stdio.h"
 
 #define IA32_APIC_BASE_MSR 0x1B
@@ -13,10 +15,10 @@ extern void enable_apic_asm();
 
 bool check_apic()
 {
-	uint32_t eax, edx;
-	cpuid(1, &eax, &edx);
-	return edx & CPUID_FEAT_EDX_APIC;
-	//return (bool) check_apic_asm();
+	//uint32_t eax, edx;
+	//cpuid(1, &eax, &edx);
+	//return edx & CPUID_FEAT_EDX_APIC;
+	return (bool) check_apic_asm();
 }
 
 void cpu_set_apic_base(uintptr_t apic)

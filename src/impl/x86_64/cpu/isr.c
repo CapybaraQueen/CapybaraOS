@@ -1,4 +1,5 @@
 #include "isr.h"
+#include "stdio.h"
 
 void exception_handler()
 {
@@ -7,5 +8,7 @@ void exception_handler()
 
 void interrupt_handler()
 {
-	extern void interrupt_handler_asm();
+	printf("I interrupted");
+	__asm__ volatile ("cli; hlt");
+	//extern void interrupt_handler_asm();
 }
